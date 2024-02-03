@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 import Nav, { NavButton } from './nav/Nav';
+import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <Nav>
-          <NavButton href='#' text='Flashcard App'></NavButton>
-          <NavButton href='#' text='New'></NavButton>
+          <NavButton href='/' text='Flashcard App'></NavButton>
+          <NavButton href='/new' text='New'></NavButton>
         </Nav>
         {children}
       </body>

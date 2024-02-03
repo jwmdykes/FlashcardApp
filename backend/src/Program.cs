@@ -2,14 +2,23 @@ using Microsoft.EntityFrameworkCore;
 
 var myCors = "_allowNextJSDevelopmentApp";
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddCors(options =>
+
+// Configure CORS only for development.
+// In production, we just make sure the api is on the same origin
+if (builder.Environment.IsDevelopment())
 {
-    options.AddPolicy(name: myCors,
-    policy =>
+    builder.Services.AddCors(options =>
     {
-        policy.WithOrigins("http://localhost:3000");
+        options.AddPolicy(name: myCors,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
     });
-});
+}
+
 builder.Services.AddDbContext<FlashcardDb>(options => options.UseNpgsql("Host=127.0.0.1;Username=flashcard_app;Password=flashcard_app;Database=flashcard_app"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 var app = builder.Build();
@@ -60,5 +69,8 @@ app.MapDelete("/flashcards/{id}", async (int id, FlashcardDb db) =>
     return Results.NotFound();
 });
 
-app.UseCors(myCors);
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors(myCors);
+}
 app.Run();

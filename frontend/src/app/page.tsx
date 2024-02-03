@@ -1,12 +1,13 @@
-import FlashcardList from './flashcards/FlashcardList';
+'use server';
 
-export default function Home() {
+import Main from '../components/Main';
+import FlashcardList from '../components/flashcards/FlashcardList';
+
+export default async function Home() {
   return (
-    <main className='px-4 pt-16 flex flex-col m-auto container'>
+    <Main>
       <h1>Flashcards</h1>
-      <div className='flex justify-center'>
-        <FlashcardList></FlashcardList>
-      </div>
-    </main>
+      <FlashcardList></FlashcardList>
+    </Main>
   );
 }
