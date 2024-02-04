@@ -7,18 +7,16 @@ import { useState } from 'react';
 import { Flashcard, postNewFlashcard } from '@/services/api';
 
 export default function NewFlashcardForm() {
-  const [question, setQuestion] = useState('');
-  const [answer, setAnswer] = useState('');
   const [isSubmitting, setIsSubmitting] = useState<boolean | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState<boolean | null>(null);
 
-  const submitForm = async () => {
+  const submitForm = async (formdata: FormData) => {
     setSubmitSuccess(null);
     setIsSubmitting(true);
     const startTime = Date.now();
     let flashcard: Flashcard = {
-      question: question,
-      answer: answer,
+      question: formdata.get('question') as string,
+      answer: formdata.get('answer') as string,
     };
     try {
       flashcard = await postNewFlashcard(flashcard);
@@ -44,36 +42,34 @@ export default function NewFlashcardForm() {
 
   return (
     <Card>
-      <div className='flex flex-col gap-2'>
-        <span className='text-2xl'>Question</span>
-        <TextArea
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-        />{' '}
-      </div>
-      <div className='flex flex-col gap-2'>
-        <span className='text-2xl'>Answer</span>
-        <TextArea
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-        />{' '}
-      </div>
-      <div className='flex justify-between'>
-        <Button callback={submitForm} text='Submit'></Button>
-        {isSubmitting && (
-          <div className='flex justify-center items-center'>Submitting...</div>
-        )}
-        {!isSubmitting && submitSuccess && (
-          <div className='text-green-500 flex justify-center items-center'>
-            Flashcard created successfully!
-          </div>
-        )}
-        {!isSubmitting && submitSuccess === false && (
-          <div className='text-red-500 flex justify-center items-center'>
-            Failed to create flashcard. Please try again.
-          </div>
-        )}
-      </div>
+      <form action={submitForm} className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-2'>
+          <span className='text-2xl'>Question</span>
+          <TextArea name='question' />{' '}
+        </div>
+        <div className='flex flex-col gap-2'>
+          <span className='text-2xl'>Answer</span>
+          <TextArea name='answer' />{' '}
+        </div>
+        <div className='flex justify-between'>
+          <Button text='Submit' type='submit'></Button>
+          {isSubmitting && (
+            <div className='flex justify-center items-center'>
+              Submitting...
+            </div>
+          )}
+          {!isSubmitting && submitSuccess && (
+            <div className='text-green-500 flex justify-center items-center'>
+              Flashcard created successfully!
+            </div>
+          )}
+          {!isSubmitting && submitSuccess === false && (
+            <div className='text-red-500 flex justify-center items-center'>
+              Failed to create flashcard. Please try again.
+            </div>
+          )}
+        </div>
+      </form>
     </Card>
   );
 }
