@@ -6,9 +6,11 @@ import Button from '../Button';
 import Card from '../Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { useNotifications } from '../notifications/NotificationContext';
 
 export default function FlashcardCard(props: { flashcard: Flashcard }) {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const { addNotification } = useNotifications();
 
   const toggleAnswer: React.MouseEventHandler = useCallback((e) => {
     e.preventDefault();
@@ -17,9 +19,20 @@ export default function FlashcardCard(props: { flashcard: Flashcard }) {
     });
   }, []);
 
-  const deleteThisCard: React.MouseEventHandler = useCallback((e) => {
+  const deleteThisCard: React.MouseEventHandler = useCallback(async (e) => {
     e.preventDefault();
-    deleteFlashcard(props.flashcard.id!);
+    try {
+      await deleteFlashcard(props.flashcard.id!);
+      addNotification({
+        message: 'Deleted Card',
+        type: 'success',
+      });
+    } catch {
+      addNotification({
+        message: 'Failed to Delete Card',
+        type: 'failure',
+      });
+    }
   }, []);
 
   return (

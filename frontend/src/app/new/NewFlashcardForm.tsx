@@ -3,31 +3,28 @@
 import Card from '@/components/Card';
 import { TextArea } from '../../components/TextArea';
 import Button from '@/components/Button';
-import { useState } from 'react';
 import { Flashcard, postNewFlashcard } from '@/services/api';
-import StatusPopup, { StatusPopupProps } from '@/components/StatusPopup';
+import { useNotifications } from '@/components/notifications/NotificationContext';
 
 export default function NewFlashcardForm() {
-  const [notification, setNotification] = useState<StatusPopupProps>({
-    message: '',
-    type: '',
-  });
+  const { addNotification } = useNotifications();
 
   const submitForm = async (formdata: FormData) => {
-    setNotification({ message: '', type: '' });
     let flashcard: Flashcard = {
       question: formdata.get('question') as string,
       answer: formdata.get('answer') as string,
     };
     try {
       flashcard = await postNewFlashcard(flashcard);
-      console.log('New flashcard created', flashcard);
-      setNotification({ message: 'Card Created', type: 'success' });
+      addNotification({
+        message: 'Added Card',
+        type: 'success',
+      });
     } catch (error) {
-      console.error('Failed to create new flashcard', error);
-      setNotification({ message: 'Card Creation Failed', type: 'failure' });
-    } finally {
-      setTimeout(() => setNotification({ message: '', type: '' }), 3000);
+      addNotification({
+        message: 'Failed to Add Card',
+        type: 'failure',
+      });
     }
   };
 
@@ -48,10 +45,6 @@ export default function NewFlashcardForm() {
           </div>
         </form>
       </Card>
-      <StatusPopup
-        type={notification.type}
-        message={notification.message}
-      ></StatusPopup>
     </>
   );
 }

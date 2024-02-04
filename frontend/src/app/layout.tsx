@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Nav, { NavButton } from './nav/Nav';
 import { Inter } from 'next/font/google';
+import { NotificationProvider } from '@/components/notifications/NotificationContext';
+import NotificationDisplay from '@/components/notifications/NotificationDisplay';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,11 +20,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <Nav>
-          <NavButton href='/' text='Flashcard App'></NavButton>
-          <NavButton href='/new' text='New'></NavButton>
-        </Nav>
-        {children}
+        <NotificationProvider>
+          <Nav>
+            <NavButton href='/' text='Flashcard App'></NavButton>
+            <NavButton href='/new' text='New'></NavButton>
+          </Nav>
+          {children}
+          <NotificationDisplay />
+        </NotificationProvider>
       </body>
     </html>
   );

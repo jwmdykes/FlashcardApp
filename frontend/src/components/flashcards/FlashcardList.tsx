@@ -1,5 +1,6 @@
 import { fetchFlashcardsJSON } from '../../services/api';
-import FlashcardListClient from './FlashcardList.client';
+import FlashcardCard from './FlashcardCard';
+import FlashcardListClient from './FlashcardListClient';
 
 export default async function FlashcardList() {
   const flashcards = await fetchFlashcardsJSON();
