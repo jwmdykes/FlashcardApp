@@ -1,6 +1,7 @@
 'use client';
 
-import React, { Key, createContext, useContext, useState } from 'react';
+import React, { Key, createContext, useContext, useId, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface Notification {
   message: string;
@@ -36,7 +37,7 @@ export const NotificationProvider = ({
     message,
     type,
   }) => {
-    const id = new Date().getTime(); // Simple ID generation
+    const id = uuidv4();
     setNotifications((prev) => [...prev, { id, message, type }]);
     setTimeout(() => removeNotification(id), 2000);
   };
