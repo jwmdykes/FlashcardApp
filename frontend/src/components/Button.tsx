@@ -15,7 +15,9 @@ const Button = function (props: ButtonProps) {
     <div className='flex'>
       <button
         onClick={props.callback}
-        className={`bg-gray-300 p-4 rounded-md hover:bg-gray-400 transition-all ease-in-out active:transform active:scale-95`}
+        className={`bg-gray-300 p-4 rounded-md hover:bg-gray-400 transition-all ease-in-out active:transform active:scale-95 aria-disabled:${pending} ${
+          pending ? 'bg-gray-400 hover:bg-gray-400' : ''
+        }`}
         type={props.type == null ? 'button' : props.type}
         aria-disabled={pending}
       >

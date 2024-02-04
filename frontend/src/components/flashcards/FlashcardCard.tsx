@@ -26,17 +26,25 @@ export default function FlashcardCard(props: { flashcard: Flashcard }) {
     <>
       <Card>
         <div className='flex justify-between gap-10'>
-          <span>{props.flashcard.question}</span>
-          <span className={showAnswer ? 'visible' : 'invisible'}>
-            {props.flashcard.answer}
-          </span>
+          <div className='flex gap-3 items-baseline'>
+            <span className='text-xl font-medium'>Question: </span>
+            <span>{props.flashcard.question}</span>
+          </div>
+          <div
+            className={`flex gap-3 items-baseline ${
+              showAnswer ? 'visible' : 'invisible'
+            }`}
+          >
+            <span className='text-xl font-medium'>Answer: </span>
+            <span>{props.flashcard.answer}</span>
+          </div>
         </div>
 
         <div className='flex justify-between items-center'>
           <Button callback={toggleAnswer} text='Toggle Answer'></Button>
           <button
             onClick={deleteThisCard}
-            className='flex justify-center items-center rounded-full border-2 border-gray-800 hover:bg-red-200 w-12 h-12 p-2'
+            className='flex justify-center items-center rounded-md  border-gray-800 bg-gray-300 hover:bg-gray-400 w-12 h-12 p-2 shadow-md transition-all ease-in-out active:transform active:scale-95'
           >
             <FontAwesomeIcon
               icon={faTrashCan}
