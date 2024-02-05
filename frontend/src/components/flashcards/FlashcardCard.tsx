@@ -19,21 +19,24 @@ export default function FlashcardCard(props: { flashcard: Flashcard }) {
     });
   }, []);
 
-  const deleteThisCard: React.MouseEventHandler = useCallback(async (e) => {
-    e.preventDefault();
-    try {
-      await deleteFlashcard(props.flashcard.id!);
-      addNotification({
-        message: 'Deleted Card',
-        type: 'success',
-      });
-    } catch {
-      addNotification({
-        message: 'Failed to Delete Card',
-        type: 'failure',
-      });
-    }
-  }, []);
+  const deleteThisCard: React.MouseEventHandler = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        await deleteFlashcard(props.flashcard.id!);
+        addNotification({
+          message: 'Deleted Card',
+          type: 'success',
+        });
+      } catch {
+        addNotification({
+          message: 'Failed to Delete Card',
+          type: 'failure',
+        });
+      }
+    },
+    [addNotification, props.flashcard.id]
+  );
 
   return (
     <>

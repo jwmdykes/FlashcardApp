@@ -38,7 +38,12 @@ export const NotificationProvider = ({
     type,
   }) => {
     const id = uuidv4();
-    setNotifications((prev) => [...prev, { id, message, type }]);
+    setNotifications((prev) => {
+      if (prev.length > 3) {
+        prev.shift();
+      }
+      return [...prev, { id, message, type }];
+    });
     setTimeout(() => removeNotification(id), 2000);
   };
 
