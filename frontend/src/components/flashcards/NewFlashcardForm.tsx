@@ -1,8 +1,8 @@
 'use client';
 
-import Card from '@/components/Card';
-import { TextArea } from '../../components/TextArea';
-import Button from '@/components/Button';
+import Card from '@/components/base/Card';
+import { TextArea } from '../base/TextArea';
+import Button from '@/components/base/Button';
 import { Flashcard, postNewFlashcard } from '@/services/api';
 import { useNotifications } from '@/components/notifications/NotificationContext';
 
@@ -34,14 +34,14 @@ export default function NewFlashcardForm() {
         <form action={submitForm} className='flex flex-col gap-6'>
           <div className='flex flex-col gap-2'>
             <span className='text-2xl'>Question</span>
-            <TextArea name='question' />{' '}
+            <TextArea name='question' rows={2} />
           </div>
           <div className='flex flex-col gap-2'>
             <span className='text-2xl'>Answer</span>
-            <TextArea name='answer' />{' '}
+            <TextArea name='answer' rows={2} />
           </div>
           <div className='flex justify-between'>
-            <Button text='Submit' type='submit'></Button>
+            <Button type='submit'>Submit</Button>
           </div>
         </form>
       </Card>
