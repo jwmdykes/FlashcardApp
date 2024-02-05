@@ -28,7 +28,7 @@ app.MapGet("/flashcards", async (FlashcardDb db) =>
     return await db.Flashcards.ToListAsync();
 });
 
-app.MapGet("/flashcards/{id}", async (int id, FlashcardDb db) =>
+app.MapGet("/flashcards/{id}", async (Guid id, FlashcardDb db) =>
 {
     return await db.Flashcards.FindAsync(id)
         is Flashcard flashcard
@@ -51,7 +51,7 @@ app.MapPost("/flashcards", async (FlashcardDto flashcard, FlashcardDb db) =>
     return Results.Created($"/flashcards/{new_flashcard.Id}", flashcard);
 });
 
-app.MapPut("/flashcards/{id}", async (int id, FlashcardDto inputFlashcard, FlashcardDb db) =>
+app.MapPut("/flashcards/{id}", async (Guid id, FlashcardDto inputFlashcard, FlashcardDb db) =>
 {
     var flashcard = await db.Flashcards.FindAsync(id);
 
@@ -64,7 +64,7 @@ app.MapPut("/flashcards/{id}", async (int id, FlashcardDto inputFlashcard, Flash
     return Results.NoContent();
 });
 
-app.MapDelete("/flashcards/{id}", async (int id, FlashcardDb db) =>
+app.MapDelete("/flashcards/{id}", async (Guid id, FlashcardDb db) =>
 {
     if (await db.Flashcards.FindAsync(id) is Flashcard flashcard)
     {
