@@ -42,7 +42,7 @@ app.MapPost("/flashcards", async (FlashcardDto flashcard, FlashcardDb db) =>
     {
         Answer = flashcard.Answer,
         Question = flashcard.Question,
-        DateCreated = DateTime.Now,
+        DateCreated = DateTime.UtcNow,
         Id = Guid.NewGuid()
     };
     db.Flashcards.Add(new_flashcard);
