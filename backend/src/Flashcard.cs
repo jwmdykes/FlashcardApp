@@ -1,6 +1,11 @@
-public class Flashcard
+public class FlashcardDto
 {
-    public int Id { get; set; }
-    public string? Question { get; set; }
-    public string? Answer { get; set; }
+    public string Question { get; set; } = string.Empty;
+    public string Answer { get; set; } = string.Empty;
+}
+
+public class Flashcard : FlashcardDto
+{
+    public Guid Id { get; set; }
+    public DateTime DateCreated { get; set; }
 }

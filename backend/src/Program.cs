@@ -36,15 +36,22 @@ app.MapGet("/flashcards/{id}", async (int id, FlashcardDb db) =>
             : Results.NotFound();
 });
 
-app.MapPost("/flashcards", async (Flashcard flashcard, FlashcardDb db) =>
+app.MapPost("/flashcards", async (FlashcardDto flashcard, FlashcardDb db) =>
 {
-    db.Flashcards.Add(flashcard);
+    var new_flashcard = new Flashcard()
+    {
+        Answer = flashcard.Answer,
+        Question = flashcard.Question,
+        DateCreated = DateTime.Now,
+        Id = Guid.NewGuid()
+    };
+    db.Flashcards.Add(new_flashcard);
     await db.SaveChangesAsync();
 
-    return Results.Created($"/flashcards/{flashcard.Id}", flashcard);
+    return Results.Created($"/flashcards/{new_flashcard.Id}", flashcard);
 });
 
-app.MapPut("/flashcards/{id}", async (int id, Flashcard inputFlashcard, FlashcardDb db) =>
+app.MapPut("/flashcards/{id}", async (int id, FlashcardDto inputFlashcard, FlashcardDb db) =>
 {
     var flashcard = await db.Flashcards.FindAsync(id);
 

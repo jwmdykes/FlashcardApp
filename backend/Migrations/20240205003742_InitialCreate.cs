@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,10 +15,10 @@ namespace backend.Migrations
                 name: "Flashcards",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Question = table.Column<string>(type: "text", nullable: true),
-                    Answer = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Question = table.Column<string>(type: "text", nullable: false),
+                    Answer = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
