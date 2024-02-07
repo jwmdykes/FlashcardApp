@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { useNotifications } from '../notifications/NotificationContext';
 import FlashcardEdit from './FlashcardEdit';
+import FlashcardEditModal from './FlashcardEditModal';
 
 export default function FlashcardCard(props: { flashcard: Flashcard }) {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -80,15 +81,10 @@ export default function FlashcardCard(props: { flashcard: Flashcard }) {
         </div>
       </Card>
       {modalVisible && (
-        <>
-          <div
-            className='absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 hover:cursor-pointer'
-            onClick={toggleModal}
-          ></div>
-          <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2'>
-            <FlashcardEdit flashcard={props.flashcard}></FlashcardEdit>
-          </div>
-        </>
+        <FlashcardEditModal
+          flashcard={props.flashcard}
+          toggleModal={toggleModal}
+        />
       )}
     </>
   );
