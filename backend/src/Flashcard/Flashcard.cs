@@ -1,3 +1,5 @@
+namespace backend;
+
 public class FlashcardDto
 {
     public string Question { get; set; } = string.Empty;
