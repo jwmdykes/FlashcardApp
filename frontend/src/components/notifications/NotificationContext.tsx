@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React, { Key, createContext, useContext, useId, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { Key, createContext, useContext, useId, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export interface Notification {
   message: string;
-  type: 'success' | 'failure' | '';
+  type: "success" | "failure" | "";
   id: Key;
 }
 
 interface NotificationContextType {
   notifications: Notification[];
-  addNotification: (notification: Omit<Notification, 'id'>) => void;
+  addNotification: (notification: Omit<Notification, "id">) => void;
   removeNotification: (id: Key) => void;
 }
 
@@ -33,7 +33,7 @@ export const NotificationProvider = ({
 }) => {
   const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const addNotification: (notification: Omit<Notification, 'id'>) => void = ({
+  const addNotification: (notification: Omit<Notification, "id">) => void = ({
     message,
     type,
   }) => {

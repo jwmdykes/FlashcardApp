@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Flashcard } from '@/services/api';
-import { AnimatePresence, motion } from 'framer-motion';
-import FlashcardCard from './FlashcardCard';
+import { Flashcard } from "@/services/api";
+import { AnimatePresence, motion } from "framer-motion";
+import FlashcardCard from "./FlashcardCard";
 
 export interface FlashcardListClientProps {
   flashcards: Flashcard[];

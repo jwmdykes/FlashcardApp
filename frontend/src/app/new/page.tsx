@@ -1,5 +1,5 @@
-import Main from '@/components/Main';
-import NewFlashcardForm from '../../components/flashcards/NewFlashcardForm';
+import Main from "@/components/Main";
+import NewFlashcardForm from "../../components/flashcards/NewFlashcardForm";
 
 export default function createCard() {
   return (

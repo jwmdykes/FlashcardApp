@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer base {
-    h1 {
-        @apply text-3xl;
-        @apply pb-8;
-        @apply font-medium
-    }
-    h2 {
-        @apply text-xl;
-        @apply pb-2;
-    }
+  h1 {
+    @apply text-3xl;
+    @apply pb-8;
+    @apply font-medium;
+  }
+  h2 {
+    @apply text-xl;
+    @apply pb-2;
+  }
 }

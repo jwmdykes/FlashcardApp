@@ -1,7 +1,7 @@
-'use server';
+"use server";
 
-import Main from '../components/Main';
-import FlashcardList from '../components/flashcards/FlashcardList';
+import Main from "../components/Main";
+import FlashcardList from "../components/flashcards/FlashcardList";
 
 export default async function Home() {
   return (

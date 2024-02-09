@@ -1,14 +1,13 @@
-'use client';
+"use client";
 
-import { useCallback, useState } from 'react';
-import { Flashcard, deleteFlashcard } from '../../services/api';
-import Button from '../base/Button';
-import Card from '../base/Card';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { useNotifications } from '../notifications/NotificationContext';
-import FlashcardEdit from './FlashcardEdit';
-import FlashcardEditModal from './FlashcardEditModal';
+import { useCallback, useState } from "react";
+import { Flashcard, deleteFlashcard } from "../../services/api";
+import Button from "../base/Button";
+import Card from "../base/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { useNotifications } from "../notifications/NotificationContext";
+import FlashcardEditModal from "./FlashcardEditModal";
 
 export default function FlashcardCard(props: { flashcard: Flashcard }) {
   const [showAnswer, setShowAnswer] = useState<boolean>(false);
@@ -33,48 +32,48 @@ export default function FlashcardCard(props: { flashcard: Flashcard }) {
       try {
         await deleteFlashcard(props.flashcard.id!);
         addNotification({
-          message: 'Deleted Card',
-          type: 'success',
+          message: "Deleted Card",
+          type: "success",
         });
       } catch {
         addNotification({
-          message: 'Failed to Delete Card',
-          type: 'failure',
+          message: "Failed to Delete Card",
+          type: "failure",
         });
       }
     },
-    [addNotification, props.flashcard.id]
+    [addNotification, props.flashcard.id],
   );
 
   return (
     <>
       <Card>
-        <div className='flex justify-between gap-10'>
-          <div className='flex gap-3 items-baseline'>
-            <span className='text-xl font-medium'>Question: </span>
+        <div className="flex justify-between gap-10">
+          <div className="flex gap-3 items-baseline">
+            <span className="text-xl font-medium">Question: </span>
             <span>{props.flashcard.question}</span>
           </div>
           <div
             className={`flex gap-3 items-baseline ${
-              showAnswer ? 'visible' : 'invisible'
+              showAnswer ? "visible" : "invisible"
             }`}
           >
-            <span className='text-xl font-medium'>Answer: </span>
+            <span className="text-xl font-medium">Answer: </span>
             <span>{props.flashcard.answer}</span>
           </div>
         </div>
 
-        <div className='flex justify-between'>
+        <div className="flex justify-between">
           <Button onClick={toggleAnswer}>Toggle Answer</Button>
-          <div className='flex gap-3 justify-between items-stretch'>
+          <div className="flex gap-3 justify-between items-stretch">
             <Button onClick={toggleModal}>Edit</Button>
             <button
               onClick={deleteThisCard}
-              className='justify-center items-center rounded-md  border-gray-800 bg-gray-300 hover:bg-gray-400 px-4 py-2 shadow-md transition-all ease-in-out active:transform active:scale-95'
+              className="justify-center items-center rounded-md  border-gray-800 bg-gray-300 hover:bg-gray-400 px-4 py-2 shadow-md transition-all ease-in-out active:transform active:scale-95"
             >
               <FontAwesomeIcon
                 icon={faTrashCan}
-                className='fa-xl'
+                className="fa-xl"
               ></FontAwesomeIcon>
             </button>
           </div>

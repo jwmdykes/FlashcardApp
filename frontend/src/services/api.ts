@@ -1,7 +1,7 @@
-'use server';
+"use server";
 
-import { revalidateTag } from 'next/cache';
-import config from './config';
+import { revalidateTag } from "next/cache";
+import config from "./config";
 
 export interface Flashcard {
   id?: number;
@@ -12,42 +12,42 @@ export interface Flashcard {
 export async function fetchFlashcardsJSON(): Promise<Flashcard[]> {
   const response = await fetch(`${config.apiUrl}/flashcards`, {
     next: {
-      tags: ['flashcards'],
+      tags: ["flashcards"],
     },
   });
   if (!response.ok) {
-    throw new Error('Data fetching failed');
+    throw new Error("Data fetching failed");
   }
   return await response.json();
 }
 
 export async function postNewFlashcard(
-  flashcard: Flashcard
+  flashcard: Flashcard,
 ): Promise<Flashcard> {
   const response = await fetch(`${config.apiUrl}/flashcards`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(flashcard),
   });
 
   if (!response.ok) {
-    throw new Error('Failed to post new flashcard');
+    throw new Error("Failed to post new flashcard");
   }
 
-  revalidateTag('flashcards');
+  revalidateTag("flashcards");
   return await response.json();
 }
 
 export async function deleteFlashcard(id: number): Promise<void> {
   const response = await fetch(`${config.apiUrl}/flashcards/${id}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 
   if (!response.ok) {
     throw new Error(`Failed to delete flashcard with id ${id}`);
   }
 
-  revalidateTag('flashcards');
+  revalidateTag("flashcards");
 }

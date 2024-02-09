@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useFormStatus } from 'react-dom';
+import { useFormStatus } from "react-dom";
 
-interface ButtonProps extends React.ComponentProps<'button'> {}
+interface ButtonProps extends React.ComponentProps<"button"> {}
 
 const Button = function ({ children, ...props }: ButtonProps) {
   const { pending } = useFormStatus();
 
   return (
-    <div className='flex'>
+    <div className="flex">
       <button
         {...props}
         className={`bg-gray-300 p-4 rounded-md hover:bg-gray-400 transition-all ease-in-out active:transform active:scale-95 aria-disabled:${pending} ${
-          pending ? 'bg-gray-400 hover:bg-gray-400' : ''
+          pending ? "bg-gray-400 hover:bg-gray-400" : ""
         }`}
         aria-disabled={pending}
       >
