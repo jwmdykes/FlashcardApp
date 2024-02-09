@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Nav, { NavButton } from './nav/Nav';
+import Nav, { NavButton, NavButtonText } from '../components/base/Nav';
 import { Inter } from 'next/font/google';
 import { NotificationProvider } from '@/components/notifications/NotificationContext';
 import NotificationDisplay from '@/components/notifications/NotificationDisplay';
@@ -22,8 +22,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <NotificationProvider>
           <Nav>
-            <NavButton href='/' text='Flashcard App'></NavButton>
-            <NavButton href='/new' text='New'></NavButton>
+            <NavButton href='/'>
+              <NavButtonText>Flashcard App</NavButtonText>
+            </NavButton>
+            <NavButton href='/new'>
+              <NavButtonText>New</NavButtonText>
+            </NavButton>
+            <NavButton href='/login'>
+              <NavButtonText>Login</NavButtonText>
+            </NavButton>
           </Nav>
           {children}
           <NotificationDisplay />
